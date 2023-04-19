@@ -1,4 +1,29 @@
 package PO.categories;
 
-public class Laptops {
+import PO.BasePage;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
+
+import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
+
+public class Laptops extends BasePage {
+
+    @FindBy(css = "div.card")
+    private List<WebElement> card;
+
+    private String price = ".//h5[contains(text(), '$')]";
+
+    public Laptops() {
+        PageFactory.initElements(getDriver(), this);
+    }
+
+    public void getPrice(int index){
+        wait.until(ExpectedConditions.visibilityOf(card.get(index)));
+        System.out.println("el precio es: " + card.get(index).findElement(By.xpath(price)).getText());
+    }
 }
